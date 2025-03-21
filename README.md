@@ -1,4 +1,4 @@
-# breakfast-shops-dev
+# breakfast-shops develop
 
 ## 安裝
 ```
