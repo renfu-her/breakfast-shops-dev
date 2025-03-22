@@ -9,7 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class NewsResource extends Resource
 {
@@ -35,6 +35,7 @@ class NewsResource extends Resource
                 TinyEditor::make('content')
                     ->label('內容')
                     ->required()
+                    ->minHeight(500)
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('start_date')
                     ->label('開始日期'),

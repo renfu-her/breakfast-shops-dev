@@ -10,7 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
-use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class FoodResource extends Resource
 {
@@ -40,6 +40,7 @@ class FoodResource extends Resource
                     ->maxLength(255),
                 TinyEditor::make('content')
                     ->label('內容')
+                    ->minHeight(500)
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_active')

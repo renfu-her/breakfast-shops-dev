@@ -9,7 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class ActivityResource extends Resource
 {
@@ -34,6 +34,7 @@ class ActivityResource extends Resource
                     ->maxLength(255),
                 TinyEditor::make('content')
                     ->label('內容')
+                    ->minHeight(500)
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_active')
