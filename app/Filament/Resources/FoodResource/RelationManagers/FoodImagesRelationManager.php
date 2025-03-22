@@ -11,10 +11,12 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\FoodImage;
 class FoodImagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'images';
+
+    protected static string $model = FoodImage::class;
 
     protected static ?string $title = '圖片管理';
 

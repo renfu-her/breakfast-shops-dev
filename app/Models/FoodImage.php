@@ -11,6 +11,8 @@ class FoodImage extends Model
 {
     use HasFactory;
 
+    protected $table = 'food_images';
+
     protected $fillable = [
         'food_id',
         'image',
