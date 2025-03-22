@@ -12,6 +12,10 @@ use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use App\Filament\Resources\FoodResource\RelationManagers;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class FoodResource extends Resource
 {
@@ -39,6 +43,36 @@ class FoodResource extends Resource
                 Forms\Components\TextInput::make('subtitle')
                     ->label('副主題')
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                    ->label('圖片')
+                    ->image()
+                    ->imageEditor()
+                    ->directory('foods')
+                    ->columnSpanFull()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->downloadable()
+                    ->openable()
+                    ->getUploadedFileNameForStorageUsing(
+                        fn($file): string => (string) str(Str::uuid7() . '.webp')
+                    )
+                    ->saveUploadedFileUsing(function ($file) {
+                        $manager = new ImageManager(new Driver());
+                        $image = $manager->read($file);
+                        $image->cover(800, 600);
+                        $filename = Str::uuid7()->toString() . '.webp';
+
+                        if (!file_exists(storage_path('app/public/foods'))) {
+                            mkdir(storage_path('app/public/foods'), 0755, true);
+                        }
+
+                        $image->toWebp(80)->save(storage_path('app/public/foods/' . $filename));
+                        return 'foods/' . $filename;
+                    })
+                    ->deleteUploadedFileUsing(function ($file) {
+                        if ($file) {
+                            Storage::disk('public')->delete($file);
+                        }
+                    }),
                 TinyEditor::make('content')
                     ->label('內容')
                     ->minHeight(500)
@@ -64,6 +98,8 @@ class FoodResource extends Resource
                 Tables\Columns\TextColumn::make('subtitle')
                     ->label('副主題')
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('圖片'),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('啟用')
                     ->boolean(),
