@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 
 class BrandInfoResource extends Resource
 {
@@ -31,7 +32,7 @@ class BrandInfoResource extends Resource
                 Forms\Components\TextInput::make('subtitle')
                     ->label('副主題')
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('content')
+                TinyEditor::make('content')
                     ->label('內容')
                     ->required()
                     ->columnSpanFull(),
