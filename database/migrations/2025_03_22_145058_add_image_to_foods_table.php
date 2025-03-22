@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('foods', function (Blueprint $table) {
+        Schema::table('food', function (Blueprint $table) {
             $table->string('image')->nullable()->after('subtitle');
         });
     }
