@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Food extends Model
 {
@@ -21,10 +22,16 @@ class Food extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'sort' => 'integer',
     ];
 
     public function category()
     {
         return $this->belongsTo(FoodCategory::class, 'food_category_id');
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(FoodImage::class)->orderBy('sort');
     }
 } 

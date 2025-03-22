@@ -9,6 +9,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use App\Services\ImageUploadService;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class BannerResource extends Resource
 {
@@ -33,9 +38,34 @@ class BannerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->label('圖片')
-                    ->required()
                     ->image()
-                    ->imageEditor(),
+                    ->imageEditor()
+                    ->directory('banners')
+                    ->columnSpanFull()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->downloadable()
+                    ->openable()
+                    ->getUploadedFileNameForStorageUsing(
+                        fn($file): string => (string) str(Str::uuid7() . '.webp')
+                    )
+                    ->saveUploadedFileUsing(function ($file) {
+                        $manager = new ImageManager(new Driver());
+                        $image = $manager->read($file);
+                        $image->cover(1920, 1080);
+                        $filename = Str::uuid7()->toString() . '.webp';
+
+                        if (!file_exists(storage_path('app/public/banners'))) {
+                            mkdir(storage_path('app/public/banners'), 0755, true);
+                        }
+
+                        $image->toWebp(80)->save(storage_path('app/public/banners/' . $filename));
+                        return 'banners/' . $filename;
+                    })
+                    ->deleteUploadedFileUsing(function ($file) {
+                        if ($file) {
+                            Storage::disk('public')->delete($file);
+                        }
+                    }),
                 Forms\Components\Toggle::make('is_active')
                     ->label('啟用')
                     ->default(true)

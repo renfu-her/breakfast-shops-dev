@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use App\Filament\Resources\FoodResource\RelationManagers;
 
 class FoodResource extends Resource
 {
@@ -101,6 +102,13 @@ class FoodResource extends Resource
             'index' => Pages\ListFoods::route('/'),
             'create' => Pages\CreateFood::route('/create'),
             'edit' => Pages\EditFood::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\FoodImagesRelationManager::class,
         ];
     }
 } 
