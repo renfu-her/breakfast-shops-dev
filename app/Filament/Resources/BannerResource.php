@@ -40,13 +40,22 @@ class BannerResource extends Resource
                     ->label('啟用')
                     ->default(true)
                     ->inline(false),
+                Forms\Components\TextInput::make('sort')
+                    ->label('排序')
+                    ->numeric()
+                    ->default(0)
+                    ->required(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('sort', 'asc')
             ->columns([
+                Tables\Columns\TextColumn::make('sort')
+                    ->label('排序')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('主題')
                     ->searchable(),
