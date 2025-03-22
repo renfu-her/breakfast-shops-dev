@@ -15,6 +15,7 @@ class ActivityResource extends Resource
     protected static ?string $model = Activity::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static ?string $navigationGroup = '活動管理';
     
     protected static ?string $modelLabel = '活動';
     protected static ?string $pluralModelLabel = '活動列表';

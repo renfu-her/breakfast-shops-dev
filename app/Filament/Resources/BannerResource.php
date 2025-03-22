@@ -15,9 +15,10 @@ class BannerResource extends Resource
     protected static ?string $model = Banner::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
+    protected static ?string $navigationGroup = '網站內容管理';
     
-    protected static ?string $modelLabel = '橫幅';
-    protected static ?string $pluralModelLabel = '橫幅管理';
+    protected static ?string $modelLabel = '橫幅廣告';
+    protected static ?string $pluralModelLabel = '橫幅廣告管理';
 
     public static function form(Form $form): Form
     {

@@ -15,6 +15,7 @@ class ContactResource extends Resource
     protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?string $navigationGroup = '客戶服務';
     
     protected static ?string $modelLabel = '聯繫表單';
     protected static ?string $pluralModelLabel = '聯繫表單';

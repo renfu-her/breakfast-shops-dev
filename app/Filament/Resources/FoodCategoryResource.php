@@ -15,6 +15,8 @@ class FoodCategoryResource extends Resource
     protected static ?string $model = FoodCategory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationGroup = '餐點管理';
+    protected static ?int $navigationSort = 2;
     
     protected static ?string $modelLabel = '餐點分類';
     protected static ?string $pluralModelLabel = '餐點分類';

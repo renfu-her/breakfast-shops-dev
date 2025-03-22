@@ -9,12 +9,15 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 
 class FoodResource extends Resource
 {
     protected static ?string $model = Food::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cake';
+    protected static ?string $navigationGroup = '餐點管理';
+    protected static ?int $navigationSort = 1;
     
     protected static ?string $modelLabel = '餐點';
     protected static ?string $pluralModelLabel = '餐點介紹';
