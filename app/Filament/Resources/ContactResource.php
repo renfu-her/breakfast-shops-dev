@@ -43,6 +43,10 @@ class ContactResource extends Resource
                     ->required()
                     ->rows(4)
                     ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_active')
+                    ->label('啟用')
+                    ->default(true)
+                    ->inline(false),
             ]);
     }
 

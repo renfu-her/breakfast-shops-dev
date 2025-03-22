@@ -37,7 +37,8 @@ class AboutResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_active')
                     ->label('啟用')
-                    ->default(true),
+                    ->default(true)
+                    ->inline(false),
             ]);
     }
 

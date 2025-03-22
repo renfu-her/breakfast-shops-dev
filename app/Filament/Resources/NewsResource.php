@@ -41,7 +41,8 @@ class NewsResource extends Resource
                     ->label('結束日期'),
                 Forms\Components\Toggle::make('is_active')
                     ->label('啟用')
-                    ->default(true),
+                    ->default(true)
+                    ->inline(false),
             ]);
     }
 
