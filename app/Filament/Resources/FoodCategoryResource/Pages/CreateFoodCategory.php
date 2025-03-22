@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateFoodCategory extends CreateRecord
 {
     protected static string $resource = FoodCategoryResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 } 
