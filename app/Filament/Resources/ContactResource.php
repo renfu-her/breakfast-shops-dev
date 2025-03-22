@@ -15,23 +15,30 @@ class ContactResource extends Resource
     protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    
+    protected static ?string $modelLabel = '聯繫表單';
+    protected static ?string $pluralModelLabel = '聯繫表單';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('姓名')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone')
+                    ->label('電話')
                     ->required()
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label('電子郵件')
                     ->required()
                     ->email()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('content')
+                    ->label('內容')
                     ->required()
                     ->rows(4)
                     ->columnSpanFull(),
@@ -43,14 +50,19 @@ class ContactResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('姓名')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('電話')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('電子郵件')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('content')
+                    ->label('內容')
                     ->limit(50),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('建立時間')
                     ->dateTime()
                     ->sortable(),
             ])
@@ -58,12 +70,15 @@ class ContactResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('編輯'),
+                Tables\Actions\DeleteAction::make()
+                    ->label('刪除'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('刪除所選'),
                 ]),
             ]);
     }
