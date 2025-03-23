@@ -12,8 +12,9 @@ class FoodCategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'is_active' => $this->is_active,
             'foods' => FoodResource::collection($this->whenLoaded('foods')),
+            'sort' => $this->sort,
+            'is_active' => $this->is_active,
         ];
     }
 } 

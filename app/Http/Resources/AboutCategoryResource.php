@@ -11,14 +11,13 @@ class AboutCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
             'name' => $this->name,
-            'sort' => $this->sort,
-            'is_active' => $this->is_active,
-            'parent_name' => $this->parent_name,
-            'has_children' => $this->has_children,
+            'parent_id' => $this->parent_id,
+            'parent' => new AboutCategoryResource($this->whenLoaded('parent')),
             'children' => AboutCategoryResource::collection($this->whenLoaded('children')),
             'abouts' => AboutResource::collection($this->whenLoaded('abouts')),
+            'sort' => $this->sort,
+            'is_active' => $this->is_active,
         ];
     }
 } 

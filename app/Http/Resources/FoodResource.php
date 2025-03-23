@@ -11,14 +11,14 @@ class FoodResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'food_category_id' => $this->food_category_id,
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
-            'content' => $this->content,
-            'image' => $this->image ? asset('storage/' . $this->image) : null,
-            'is_active' => $this->is_active,
-            'category_name' => $this->category?->name,
+            'name' => $this->name,
+            'description' => $this->description,
+            'price' => $this->price,
+            'category_id' => $this->category_id,
+            'category' => new FoodCategoryResource($this->whenLoaded('category')),
             'images' => FoodImageResource::collection($this->whenLoaded('images')),
+            'sort' => $this->sort,
+            'is_active' => $this->is_active,
         ];
     }
 } 

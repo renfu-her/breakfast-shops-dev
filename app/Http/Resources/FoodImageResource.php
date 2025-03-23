@@ -12,8 +12,9 @@ class FoodImageResource extends JsonResource
         return [
             'id' => $this->id,
             'food_id' => $this->food_id,
-            'image' => asset('storage/' . $this->image),
+            'image' => $this->image,
             'sort' => $this->sort,
+            'is_active' => $this->is_active,
         ];
     }
 } 
