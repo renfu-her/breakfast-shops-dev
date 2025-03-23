@@ -23,7 +23,7 @@ class BannerResource extends Resource
     protected static ?string $navigationGroup = '網站管理';
     
     protected static ?string $modelLabel = '橫幅廣告';
-    protected static ?string $pluralModelLabel = '橫幅廣告管理';
+    protected static ?string $pluralModelLabel = '廣告管理';
 
     public static function form(Form $form): Form
     {
