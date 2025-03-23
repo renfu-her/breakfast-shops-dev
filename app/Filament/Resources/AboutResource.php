@@ -4,13 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AboutResource\Pages;
 use App\Models\About;
-use App\Models\AboutCategory;
-use Filament\Forms;
+use App\Services\AboutService;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class AboutResource extends Resource
 {
@@ -25,78 +22,27 @@ class AboutResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('category_id')
-                    ->label('分類')
-                    ->relationship('category', 'name', function ($query) {
-                        return $query->where('parent_id', '>', 0);
-                    })
-                    ->required(),
-                Forms\Components\TextInput::make('title')
-                    ->label('主題')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subtitle')
-                    ->label('副主題')
-                    ->maxLength(255),
-                TinyEditor::make('content')
-                    ->label('內容')
-                    ->minHeight(500)
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('is_active')
-                    ->label('啟用')
-                    ->default(true)
-                    ->inline(false),
-            ]);
+        $aboutService = new AboutService();
+
+        return $form->schema($aboutService->getFormSchema());
     }
 
     public static function table(Table $table): Table
     {
+        $aboutService = new AboutService();
+
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('category.parent.name')
-                    ->label('主分類')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->label('次分類')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->label('主題')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('subtitle')
-                    ->label('副主題')
-                    ->searchable(),
-                Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('啟用'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('建立時間')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label('更新時間')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('啟用狀態')
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make()
-                    ->label('編輯'),
-                Tables\Actions\DeleteAction::make()
-                    ->label('刪除'),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                        ->label('刪除所選'),
-                ]),
-            ]);
+            ->columns($aboutService->getTableColumns())
+            ->filters($aboutService->getTableFilters())
+            ->actions($aboutService->getTableActions())
+            ->bulkActions($aboutService->getTableBulkActions())
+            ->emptyStateHeading('尚無內容')
+            ->emptyStateDescription('開始建立您的第一個內容')
+            ->defaultSort('created_at', 'desc')
+            ->searchPlaceholder('搜尋內容')
+            ->filtersTriggerAction(
+                fn($action) => $action->label('篩選')
+            );
     }
 
     public static function getPages(): array
