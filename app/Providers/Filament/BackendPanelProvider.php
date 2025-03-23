@@ -33,6 +33,7 @@ class BackendPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 '網站管理',
+                '管理我們管理',
                 '餐點管理',
                 '活動管理',
                 '客戶服務',

@@ -2,47 +2,38 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AboutResource\Pages;
-use App\Models\About;
+use App\Filament\Resources\AboutCategoryResource\Pages;
 use App\Models\AboutCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
-class AboutResource extends Resource
+class AboutCategoryResource extends Resource
 {
-    protected static ?string $model = About::class;
+    protected static ?string $model = AboutCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-information-circle';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
     protected static ?string $navigationGroup = '管理我們管理';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
     
-    protected static ?string $modelLabel = '關於我們';
-    protected static ?string $pluralModelLabel = '關於我們';
+    protected static ?string $modelLabel = '關於我們分類';
+    protected static ?string $pluralModelLabel = '關於我們分類';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('category_id')
-                    ->label('分類')
-                    ->relationship('category', 'name')
+                Forms\Components\TextInput::make('name')
+                    ->label('名稱')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('sort')
+                    ->label('排序')
+                    ->numeric()
+                    ->default(0)
                     ->required(),
-                Forms\Components\TextInput::make('title')
-                    ->label('主題')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subtitle')
-                    ->label('副主題')
-                    ->maxLength(255),
-                TinyEditor::make('content')
-                    ->label('內容')
-                    ->minHeight(500)
-                    ->required()
-                    ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_active')
                     ->label('啟用')
                     ->default(true)
@@ -54,15 +45,12 @@ class AboutResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->label('分類')
+                Tables\Columns\TextColumn::make('name')
+                    ->label('名稱')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('sort')
+                    ->label('排序')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->label('主題')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('subtitle')
-                    ->label('副主題')
-                    ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('啟用')
                     ->boolean(),
@@ -98,9 +86,9 @@ class AboutResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAbouts::route('/'),
-            'create' => Pages\CreateAbout::route('/create'),
-            'edit' => Pages\EditAbout::route('/{record}/edit'),
+            'index' => Pages\ListAboutCategories::route('/'),
+            'create' => Pages\CreateAboutCategory::route('/create'),
+            'edit' => Pages\EditAboutCategory::route('/{record}/edit'),
         ];
     }
 } 

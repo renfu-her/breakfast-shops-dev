@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class About extends Model
+class AboutCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'category_id',
-        'title',
-        'subtitle',
-        'content',
+        'name',
+        'sort',
         'is_active'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'sort' => 'integer',
     ];
 
-    public function category()
+    public function abouts()
     {
-        return $this->belongsTo(AboutCategory::class, 'category_id');
+        return $this->hasMany(About::class, 'category_id');
     }
 } 
