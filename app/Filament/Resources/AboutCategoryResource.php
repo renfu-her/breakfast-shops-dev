@@ -18,8 +18,8 @@ class AboutCategoryResource extends Resource
     protected static ?string $navigationGroup = '管理我們管理';
     protected static ?int $navigationSort = 1;
     
-    protected static ?string $modelLabel = '分類';
-    protected static ?string $pluralModelLabel = '關於我們分類';
+    protected static ?string $modelLabel = '關於我們分類';
+    protected static ?string $pluralModelLabel = '分類管理';
 
     public static function form(Form $form): Form
     {
