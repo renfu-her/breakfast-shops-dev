@@ -35,20 +35,7 @@ class AboutCategoryResource extends Resource
         $service = app(AboutCategoryService::class);
 
         return $table
-            ->columns([
-                TextColumn::make('name')
-                    ->label('名稱')
-                    ->searchable(),
-                TextColumn::make('parent.name')
-                    ->label('上層分類')
-                    ->sortable(),
-                TextColumn::make('sort')
-                    ->label('排序')
-                    ->sortable(),
-                ToggleColumn::make('is_active')
-                    ->label('啟用'),
-                TextColumn::make('created_at')
-            ])
+            ->columns($service->getTableColumns())
             ->filters($service->getTableFilters())
             ->actions($service->getTableActions())
             ->bulkActions($service->getTableBulkActions())
@@ -57,7 +44,7 @@ class AboutCategoryResource extends Resource
                 $categories = AboutCategory::all();
 
                 // 遞迴函數來建立排序順序
-                $buildOrder = function ($parentId = null) use ($categories, &$buildOrder) {
+                $buildOrder = function ($parentId = 0) use ($categories, &$buildOrder) {
                     $ids = [];
                     $items = $categories->where('parent_id', $parentId)->sortBy('sort');
 
@@ -70,7 +57,7 @@ class AboutCategoryResource extends Resource
                 };
 
                 // 獲取排序後的 ID 列表
-                $orderedIds = $buildOrder(null);
+                $orderedIds = $buildOrder();
 
                 if (!empty($orderedIds)) {
                     // 建立 CASE 語句

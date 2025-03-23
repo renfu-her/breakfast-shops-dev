@@ -53,7 +53,6 @@ class AboutCategoryService extends BaseService
 
                 return $options + $buildOptions($topCategories);
             })
-            ->default(0)
             ->searchable()
             ->placeholder('選擇上層分類');
     }
@@ -99,7 +98,7 @@ class AboutCategoryService extends BaseService
                 $depth = 0;
                 $parent_id = $record->parent_id;
 
-                while ($parent_id) {
+                while ($parent_id && $parent_id > 0) {
                     $depth++;
                     $parent = AboutCategory::find($parent_id);
                     if (!$parent) break;
@@ -124,10 +123,8 @@ class AboutCategoryService extends BaseService
 
     private function getStatusColumn()
     {
-        return $this->createBooleanColumn(
-            'is_active',
-            '啟用狀態'
-        );
+        return Tables\Columns\ToggleColumn::make('is_active')
+            ->label('啟用狀態');
     }
 
     public function getTableFilters(): array
