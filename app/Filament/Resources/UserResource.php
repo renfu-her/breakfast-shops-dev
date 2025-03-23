@@ -37,7 +37,8 @@ class UserResource extends Resource
                     ->label('電子郵件')
                     ->email()
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabled(fn (string $operation): bool => $operation === 'edit'),
                 Forms\Components\TextInput::make('password')
                     ->label('密碼')
                     ->password()
