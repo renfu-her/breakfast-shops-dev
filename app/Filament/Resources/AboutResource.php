@@ -29,7 +29,9 @@ class AboutResource extends Resource
             ->schema([
                 Forms\Components\Select::make('category_id')
                     ->label('分類')
-                    ->relationship('category', 'name')
+                    ->relationship('category', 'name', function ($query) {
+                        return $query->where('parent_id', '>', 0);
+                    })
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->label('主題')
@@ -54,8 +56,11 @@ class AboutResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('category.parent.name')
+                    ->label('主分類')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('category.name')
-                    ->label('分類')
+                    ->label('次分類')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('主題')
