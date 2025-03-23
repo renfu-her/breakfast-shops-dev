@@ -21,6 +21,7 @@ class BannerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
     protected static ?string $navigationGroup = '網站管理';
+    protected static ?int $navigationSort = 1;
     
     protected static ?string $modelLabel = '橫幅廣告';
     protected static ?string $pluralModelLabel = '廣告管理';

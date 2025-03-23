@@ -17,6 +17,7 @@ class AboutResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-information-circle';
     protected static ?string $navigationGroup = '網站管理';
+    protected static ?int $navigationSort = 3;
     
     protected static ?string $modelLabel = '關於我們';
     protected static ?string $pluralModelLabel = '關於我們';
