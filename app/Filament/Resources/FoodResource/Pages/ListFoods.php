@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\FoodResource\Pages;
 
 use App\Filament\Resources\FoodResource;
+use App\Filament\Resources\FoodCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Actions\Action;
@@ -16,7 +17,7 @@ class ListFoods extends ListRecords
         return [
             Action::make('categories')
                 ->label('餐點分類')
-                ->url(FoodResource::getUrl('index', ['activeTab' => 'categories']))
+                ->url(FoodCategoryResource::getUrl('index'))
                 ->icon('heroicon-o-tag'),
             Actions\CreateAction::make()
                 ->label('新增餐點'),

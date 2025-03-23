@@ -35,7 +35,19 @@ class FoodResource extends Resource
                 Forms\Components\Select::make('food_category_id')
                     ->label('餐點分類')
                     ->relationship('category', 'name')
-                    ->required(),
+                    ->required()
+                    ->preload()
+                    ->searchable()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->label('名稱')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('啟用')
+                            ->default(true)
+                            ->inline(false),
+                    ]),
                 Forms\Components\TextInput::make('title')
                     ->label('主題')
                     ->required()
