@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\FoodResource\Pages;
 
 use App\Filament\Resources\FoodResource;
-use App\Filament\Resources\FoodCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\Action;
 
 class ListFoods extends ListRecords
 {
@@ -14,11 +14,12 @@ class ListFoods extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
-            Actions\Action::make('categories')
+            Action::make('categories')
                 ->label('餐點分類')
-                ->url(fn () => FoodCategoryResource::getUrl('index'))
+                ->url(FoodResource::getUrl('index', ['activeTab' => 'categories']))
                 ->icon('heroicon-o-tag'),
+            Actions\CreateAction::make()
+                ->label('新增餐點'),
         ];
     }
 } 
