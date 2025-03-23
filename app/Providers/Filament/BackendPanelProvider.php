@@ -31,6 +31,13 @@ class BackendPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->navigationGroups([
+                '網站管理',
+                '餐點管理',
+                '活動管理',
+                '客戶服務',
+                '系統管理',
+            ])
             ->defaultThemeMode(ThemeMode::Light)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

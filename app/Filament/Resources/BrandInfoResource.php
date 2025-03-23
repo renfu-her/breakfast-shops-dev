@@ -16,7 +16,7 @@ class BrandInfoResource extends Resource
     protected static ?string $model = BrandInfo::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-information-circle';
-    protected static ?string $navigationGroup = '網站內容管理';
+    protected static ?string $navigationGroup = '網站管理';
     
     protected static ?string $modelLabel = '品牌簡介';
     protected static ?string $pluralModelLabel = '品牌簡介';
