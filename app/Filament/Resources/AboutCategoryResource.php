@@ -9,6 +9,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 
 class AboutCategoryResource extends Resource
 {
@@ -33,7 +35,20 @@ class AboutCategoryResource extends Resource
         $service = app(AboutCategoryService::class);
 
         return $table
-            ->columns($service->getTableColumns())
+            ->columns([
+                TextColumn::make('name')
+                    ->label('名稱')
+                    ->searchable(),
+                TextColumn::make('parent.name')
+                    ->label('上層分類')
+                    ->sortable(),
+                TextColumn::make('sort')
+                    ->label('排序')
+                    ->sortable(),
+                ToggleColumn::make('is_active')
+                    ->label('啟用'),
+                TextColumn::make('created_at')
+            ])
             ->filters($service->getTableFilters())
             ->actions($service->getTableActions())
             ->bulkActions($service->getTableBulkActions())

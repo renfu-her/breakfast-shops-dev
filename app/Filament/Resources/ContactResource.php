@@ -66,6 +66,8 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('content')
                     ->label('內容')
                     ->limit(50),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('啟用'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('建立時間')
                     ->dateTime()

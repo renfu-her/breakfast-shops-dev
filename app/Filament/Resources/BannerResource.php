@@ -95,9 +95,8 @@ class BannerResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
                     ->label('圖片'),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('啟用')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('啟用'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('建立時間')
                     ->dateTime()
