@@ -11,17 +11,6 @@ class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    public function mount(string|int $record): void
-    {
-        $user = $this->getResource()::getModel()::find($record);
-        
-        if ($user && $user->email === 'admin@admin.com') {
-            $this->redirect($this->getResource()::getUrl('index'));
-        }
-        
-        parent::mount($record);
-    }
-
     protected function getHeaderActions(): array
     {
         return [
