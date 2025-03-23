@@ -20,12 +20,12 @@ class BannerController extends Controller
                 ->get();
 
             if ($banners->isEmpty()) {
-                return BaseResource::error('No banners found', 404);
+                return BaseResource::empty('No banners found');
             }
 
             return BannerResource::collection($banners);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ class BannerController extends Controller
     {
         try {
             if (!$banner->is_active) {
-                return BaseResource::error('Banner not found', 404);
+                return BaseResource::empty('Banner not found');
             }
 
             return new BannerResource($banner);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

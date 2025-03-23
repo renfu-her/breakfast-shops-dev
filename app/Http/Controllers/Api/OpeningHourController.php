@@ -20,12 +20,12 @@ class OpeningHourController extends Controller
                 ->get();
 
             if ($openingHours->isEmpty()) {
-                return BaseResource::error('No opening hours found', 404);
+                return BaseResource::empty('No opening hours found');
             }
 
             return OpeningHourResource::collection($openingHours);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ class OpeningHourController extends Controller
     {
         try {
             if (!$openingHour->is_active) {
-                return BaseResource::error('Opening hour not found', 404);
+                return BaseResource::empty('Opening hour not found');
             }
 
             return new OpeningHourResource($openingHour);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

@@ -20,12 +20,12 @@ class FoodCategoryController extends Controller
                 ->get();
 
             if ($categories->isEmpty()) {
-                return BaseResource::error('No categories found', 404);
+                return BaseResource::empty('No food categories found');
             }
 
             return FoodCategoryResource::collection($categories);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ class FoodCategoryController extends Controller
     {
         try {
             if (!$category->is_active) {
-                return BaseResource::error('Category not found', 404);
+                return BaseResource::empty('Food category not found');
             }
 
             return new FoodCategoryResource($category->load('foods'));
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

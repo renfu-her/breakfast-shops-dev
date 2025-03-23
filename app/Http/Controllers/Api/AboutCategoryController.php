@@ -21,12 +21,12 @@ class AboutCategoryController extends Controller
                 ->get();
 
             if ($categories->isEmpty()) {
-                return BaseResource::error('No categories found', 404);
+                return BaseResource::empty('No about categories found');
             }
 
             return AboutCategoryResource::collection($categories);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -34,12 +34,12 @@ class AboutCategoryController extends Controller
     {
         try {
             if (!$category->is_active) {
-                return BaseResource::error('Category not found', 404);
+                return BaseResource::empty('About category not found');
             }
 
             return new AboutCategoryResource($category->load(['children', 'abouts']));
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ class AboutCategoryController extends Controller
     {
         try {
             if (!$category->is_active) {
-                return BaseResource::error('Category not found', 404);
+                return BaseResource::empty('About category not found');
             }
 
             $children = $category->children()
@@ -56,12 +56,12 @@ class AboutCategoryController extends Controller
                 ->get();
 
             if ($children->isEmpty()) {
-                return BaseResource::error('No child categories found', 404);
+                return BaseResource::empty('No child categories found');
             }
 
             return AboutCategoryResource::collection($children);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

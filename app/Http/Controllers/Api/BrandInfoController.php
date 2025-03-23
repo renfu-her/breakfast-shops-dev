@@ -20,12 +20,12 @@ class BrandInfoController extends Controller
                 ->get();
 
             if ($brandInfos->isEmpty()) {
-                return BaseResource::error('No brand info found', 404);
+                return BaseResource::empty('No brand information found');
             }
 
             return BrandInfoResource::collection($brandInfos);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ class BrandInfoController extends Controller
     {
         try {
             if (!$brandInfo->is_active) {
-                return BaseResource::error('Brand info not found', 404);
+                return BaseResource::empty('Brand information not found');
             }
 
             return new BrandInfoResource($brandInfo);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

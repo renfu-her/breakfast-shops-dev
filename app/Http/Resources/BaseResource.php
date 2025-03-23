@@ -13,7 +13,7 @@ class BaseResource extends JsonResource
     {
         return [
             'status' => 200,
-            'message' => '成功',
+            'message' => 'Success',
         ];
     }
 
@@ -22,12 +22,21 @@ class BaseResource extends JsonResource
         $collection = parent::collection($resource);
         $collection->additional([
             'status' => 200,
-            'message' => '成功',
+            'message' => 'Success',
         ]);
         return $collection;
     }
 
-    public static function error($message = '錯誤', $status = 400): JsonResponse
+    public static function empty($message = 'No data found'): JsonResponse
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => $message,
+            'data' => [],
+        ], 200);
+    }
+
+    public static function error($message = 'Error', $status = 500): JsonResponse
     {
         return response()->json([
             'status' => $status,

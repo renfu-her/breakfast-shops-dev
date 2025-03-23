@@ -20,12 +20,12 @@ class ContactInfoController extends Controller
                 ->get();
 
             if ($contactInfos->isEmpty()) {
-                return BaseResource::error('No contact info found', 404);
+                return BaseResource::empty('找不到聯絡資訊');
             }
 
             return ContactInfoResource::collection($contactInfos);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ class ContactInfoController extends Controller
     {
         try {
             if (!$contactInfo->is_active) {
-                return BaseResource::error('Contact info not found', 404);
+                return BaseResource::empty('找不到此聯絡資訊');
             }
 
             return new ContactInfoResource($contactInfo);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

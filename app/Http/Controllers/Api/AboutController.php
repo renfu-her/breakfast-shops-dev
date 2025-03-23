@@ -21,12 +21,12 @@ class AboutController extends Controller
                 ->get();
 
             if ($abouts->isEmpty()) {
-                return BaseResource::error('No abouts found', 404);
+                return BaseResource::empty('No about data found');
             }
 
             return AboutResource::collection($abouts);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -34,12 +34,12 @@ class AboutController extends Controller
     {
         try {
             if (!$about->is_active) {
-                return BaseResource::error('About not found', 404);
+                return BaseResource::empty('About data not found');
             }
 
             return new AboutResource($about->load('category.parent'));
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -53,12 +53,12 @@ class AboutController extends Controller
                 ->get();
 
             if ($abouts->isEmpty()) {
-                return BaseResource::error('No abouts found in this category', 404);
+                return BaseResource::empty('No about data found in this category');
             }
 
             return AboutResource::collection($abouts);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 

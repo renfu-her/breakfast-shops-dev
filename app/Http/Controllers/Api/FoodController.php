@@ -20,12 +20,12 @@ class FoodController extends Controller
                 ->get();
 
             if ($foods->isEmpty()) {
-                return BaseResource::error('No foods found', 404);
+                return BaseResource::empty('No food items found');
             }
 
             return FoodResource::collection($foods);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ class FoodController extends Controller
     {
         try {
             if (!$food->is_active) {
-                return BaseResource::error('Food not found', 404);
+                return BaseResource::empty('Food item not found');
             }
 
             return new FoodResource($food->load(['category', 'images']));
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 
@@ -52,12 +52,12 @@ class FoodController extends Controller
                 ->get();
 
             if ($foods->isEmpty()) {
-                return BaseResource::error('No foods found in this category', 404);
+                return BaseResource::empty('No food items found in this category');
             }
 
             return FoodResource::collection($foods);
         } catch (\Exception $e) {
-            return BaseResource::error($e->getMessage(), 500);
+            return BaseResource::error($e->getMessage());
         }
     }
 } 
